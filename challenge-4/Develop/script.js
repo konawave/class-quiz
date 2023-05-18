@@ -34,8 +34,6 @@ startBtn.addEventListener("click", function() {
     answer2.textContent = "You fools.";
     answer3.textContent = "Away from here.";
     answer4.textContent = "Far away.";
-
-
 })
 // Event listener for each answer question
 
