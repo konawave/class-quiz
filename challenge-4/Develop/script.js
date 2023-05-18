@@ -2,6 +2,7 @@ var highscoreBtn = document.querySelector("#highscore")
 var timer = document.querySelector("#timer")
 var startBtn = document.querySelector("#start") //No start button quite yet. Will use datasets to make it visible/hidden. 
 var questionBtn = document.querySelector("#question")
+var questionTitle = document.querySelector('#question')
 
 // Variables for answer buttons
 var answer1 = document.querySelector("#answer1")
@@ -10,6 +11,7 @@ var answer3 = document.querySelector("#answer3")
 var answer4 = document.querySelector("#answer4")
 
 var initials = ""
+var questionIndex = 0
 
 var questions = [
     {
@@ -74,6 +76,44 @@ var questions = [
 
 ]
 
+// Function: Start quiz. Function must:
+    // Activate on click event of the start button
+    // setAttribute of the Start button to display:none
+    // uses countdown function.
+    // Call find questions function.
+startBtn.addEventListener("click", startQuiz);
+
+function startQuiz() {
+    startBtn.setAttribute("style", "display:none");
+    countdown();
+    findQuestion();
+}
+// Function: Find questions. Function must:
+    // Set current question (based on index of the array?)
+    // Increment question index by 1
+    // Set the text content of each of the choice buttons
+    // Add event listener for click on questions function
+function findQuestion() {
+    var question = questions[questionIndex];
+    questionTitle.textContent = question.title;
+
+}
+// Function: Click on questions. Function must:
+    // Check for boolean if answer is True or False
+        // Decrement time if False
+        // If time hits 0, ends quiz
+    // Call end quiz function
+// Function: End quiz. Function must:
+    // clear timer interval
+    // bring score (remaining time) front and center
+    // Call save user function
+// Function: save user. Function must:
+    // Present an input box to enter initials.
+    // Save initials as key and score as value in local storage.
+    // Have a save button to do the above.
+    // Present all locally stored scores, sorted by value. 
+// Play again function:
+    // Calls Start quiz function
 function countdown(){
     var timerCount = 80
     var timerCountdown = setInterval(function() {   

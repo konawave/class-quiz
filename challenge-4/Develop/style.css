@@ -32,3 +32,8 @@ body #header {
 #answers li {
     list-style-type: none;
 }
+
+#start {
+    display: inline;
+
+}
