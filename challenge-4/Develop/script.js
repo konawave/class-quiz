@@ -11,6 +11,69 @@ var answer4 = document.querySelector("#answer4")
 
 var initials = ""
 
+var questions = [
+    {
+        name: "question1",
+        title: "When Gandalf was battling the Balrog in Moria, he said: 'Fly ______'",
+        choices: ["My friends", "You fools", "Away from here", "Far away"],
+        answer: "You fools"
+    },
+    {
+        name: "question2",
+        title: "How old is Bilbo during his birthday party in 'The Fellowship of the Ring'?",
+        choices: ["One hundred twenty", "Seventy two", "Eleventy one", "Eighty three"],
+        answer: "Eleventy one"
+    },
+    {
+        name: "question3",
+        title: "What is Aragorn's father's name?",
+        choices: ["Elendil", "Isildur", "Arathorn", "Annatar"],
+        answer: "Arathorn"
+    },
+    {
+        name: "question4",
+        title: "Where did Frodo get stabbed by a Ringwraith?",
+        choiches: ["Weathertop", "Bree-land", "Mirkwood", "Dol Guldur"],
+        answer: "Weathertop"
+    },
+    {
+        name: "question5",
+        title: "What was the name of the sword Bilbo gave to Frodo?",
+        choices: ["Spike", "Sting", "Poker", "Shiv"],
+        answer: "Sting"
+    },
+    {
+        name: "question6",
+        title: "Which forest were the Tree Ents found by Merry & Pippin?",
+        choices: ["Fangorn", "Mirkwood", "Lothlorien", "Old Forest"],
+        answer: "Fangorn"
+    },
+    {
+        name: "question7",
+        title: "What is Pippin's full name?",
+        choices: ["Pippin Baggins", "Piper Perry", "Pipperos Parrow", "Peregrin Took"],
+        answer: "Peregrin Took"
+    },
+    {
+        name: "question8",
+        title: "What was Denethor's title in the Kingdom of Gondor?",
+        choices: ["King", "Regent", "Councillor", "Steward"],
+        answer: "Steward"
+    },
+    {
+        name: "question9",
+        title: "What sense was Legolas known for?",
+        choices: ["Sight", "Hearing", "Smell", "Touch"],
+        answer: "Sight"
+    },
+    {
+        name: "question10",
+        title: "Who does Sam marry when he returns to the Shire?",
+        choices: ["Clementine", "Rose", "Thyme", "Lily"]
+    }
+
+]
+
 function countdown(){
     var timerCount = 80
     var timerCountdown = setInterval(function() {   
@@ -24,17 +87,3 @@ function countdown(){
     }
     } , 1000)
 }
-
-// Event listener for highscoreBtn:
-startBtn.addEventListener("click", function() {
-    countdown();
-    questionBtn.textContent = "When Gandalf was battling the Balrog in Moria, he said: 'Fly _______'";
-    console.log(question);
-    answer1.textContent = "My friends.";
-    answer2.textContent = "You fools.";
-    answer3.textContent = "Away from here.";
-    answer4.textContent = "Far away.";
-})
-// Event listener for each answer question
-
-// 
