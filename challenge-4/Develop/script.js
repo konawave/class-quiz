@@ -4,14 +4,9 @@ var startBtn = document.querySelector("#start") //No start button quite yet. Wil
 var questionBtn = document.querySelector("#question")
 var questionTitle = document.querySelector('#question')
 
-// Variables for answer buttons
-var answer1 = document.querySelector("#answer1")
-var answer2 = document.querySelector("#answer2")
-var answer3 = document.querySelector("#answer3")
-var answer4 = document.querySelector("#answer4")
-
 var initials = ""
 var questionIndex = 0
+var timerCount = 0
 
 var questions = [
     {
@@ -88,40 +83,9 @@ function startQuiz() {
     countdown();
     findQuestion();
 }
-// Function: Find questions. Function must:
-    // Set current question (based on index of the array?)
-    // Increment question index by 1
-    // Set the text content of each of the choice buttons
-    // Add event listener for click on questions function
-function findQuestion() {
-    var question = questions[questionIndex];
-    console.log(question.title);
-    questionTitle.textContent = question.title
-    console.log(question.choices);
-    question.choices.forEach(function(answer, i) {
-        var choiceButton = document.createElement("button");
-        choiceButton.setAttribute('class', 'answer' )
-        choiceButton.setAttribute('value', answer )
-    })
-}
-// Function: Click on questions. Function must:
-    // Check for boolean if answer is True or False
-        // Decrement time if False
-        // If time hits 0, ends quiz
-    // Call end quiz function
-// Function: End quiz. Function must:
-    // clear timer interval
-    // bring score (remaining time) front and center
-    // Call save user function
-// Function: save user. Function must:
-    // Present an input box to enter initials.
-    // Save initials as key and score as value in local storage.
-    // Have a save button to do the above.
-    // Present all locally stored scores, sorted by value. 
-// Play again function:
-    // Calls Start quiz function
+
 function countdown(){
-    var timerCount = 80
+    timerCount = 80
     var timerCountdown = setInterval(function() {   
     
     if (timerCount > 0) {
@@ -133,3 +97,50 @@ function countdown(){
     }
     } , 1000)
 }
+// Function: Find questions. Function must:
+    // Set current question (based on index of the array?)
+    // Increment question index by 1
+    // Set the text content of each of the choice buttons
+        // Set the text of the created element to be equal to 
+    // Add event listener for click on questions function
+function findQuestion() {
+    var question = questions[questionIndex];
+    var choiceList = document.querySelector('#answers')
+    questionTitle.textContent = question.title
+    question.choices.forEach(function(choice, i){
+        var pickBtn = document.createElement("button")
+        pickBtn.setAttribute('value', choice);
+        pickBtn.textContent = question.choices[i];
+        choiceList.appendChild(pickBtn);
+        pickBtn.addEventListener('click', checkAnswer)
+    })
+}
+
+// Function: Click on questions. Function must:
+    // Check for boolean if answer is True or False
+        // Decrement time if False
+        // If time hits 0, ends quiz
+    // Call end quiz function
+function checkAnswer () {
+    questionIndex++
+    if (this.value !== questions[questionIndex].answer) {
+        timerCount -= 15
+        findQuestion;
+    }
+    if (timerCount <= 0) {
+        endquiz;
+    } else {
+        findQuestion;
+    }
+}
+// Function: End quiz. Function must:
+    // clear timer interval
+    // bring score (remaining time) front and center
+    // Call save user function
+// Function: save user. Function must:
+    // Present an input box to enter initials.
+    // Save initials as key and score as value in local storage.
+    // Have a save button to do the above.
+    // Present all locally stored scores, sorted by value. 
+// Play again function:
+    // Calls Start quiz function
