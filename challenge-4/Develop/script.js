@@ -95,8 +95,14 @@ function startQuiz() {
     // Add event listener for click on questions function
 function findQuestion() {
     var question = questions[questionIndex];
-    questionTitle.textContent = question.title;
-
+    console.log(question.title);
+    questionTitle.textContent = question.title
+    console.log(question.choices);
+    question.choices.forEach(function(answer, i) {
+        var choiceButton = document.createElement("button");
+        choiceButton.setAttribute('class', 'answer' )
+        choiceButton.setAttribute('value', answer )
+    })
 }
 // Function: Click on questions. Function must:
     // Check for boolean if answer is True or False
