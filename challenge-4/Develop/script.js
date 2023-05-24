@@ -104,6 +104,9 @@ function countdown(){
         // Set the text of the created element to be equal to 
     // Add event listener for click on questions function
 function findQuestion() {
+    if (timerCount <= 0 || questionIndex >= 11) {
+        endQuiz();
+    }
     var question = questions[questionIndex];
     var choiceList = document.querySelector('#answers')
     questionTitle.textContent = question.title
@@ -129,7 +132,7 @@ function checkAnswer() {
         endQuiz();
     }
     else if (this.value !== questions[questionIndex].answer) {
-        timerCount -= 15
+        timerCount -= 10
         console.log(questionIndex)
         console.log(this.value);
         console.log(questions[questionIndex].answer);
@@ -143,9 +146,7 @@ function checkAnswer() {
         findQuestion();
     }
     // add 'or if questionIndexx >= 11'
-    if (timerCount <= 0) {
-        endQuiz();
-    }
+    
 
     // if (questions[questionIndex].title == 'undefined') {
     //     console.log('We did it!');
@@ -180,14 +181,21 @@ function saveUser() {
     answerBlock.append(submitBtn);
 
     submitBtn.addEventListener('click', function (){
-        console.log(userInput.value);
         localStorage.setItem(userInput.value, timerCount);
         userInput.value = '';
-        savedInitials
+
+        const highScores = document.createElement('ol');
+        let sortedScores = [];
+        for (i = 0; i<localStorage.length; i++) {
+            console.log(localStorage.getItem(localStorage.key(i)))
+            let joker = sortedScores.push(localStorage.getItem(localStorage.key(i)))
+            console.log(joker);
+
+        }
     })
     
 }
-saveUser();
+
 // Function: save user. Function must:
     // Present an input box to enter initials.
     // Save initials as key and score as value in local storage.
