@@ -30,7 +30,7 @@ var questions = [
     {
         name: "question4",
         title: "Where did Frodo get stabbed by a Ringwraith?",
-        choiches: ["Weathertop", "Bree-land", "Mirkwood", "Dol Guldur"],
+        choices: ["Weathertop", "Bree-land", "Mirkwood", "Dol Guldur"],
         answer: "Weathertop"
     },
     {
@@ -48,7 +48,7 @@ var questions = [
     {
         name: "question7",
         title: "What is Pippin's full name?",
-        choices: ["Pippin Baggins", "Piper Perry", "Pipperos Parrow", "Peregrin Took"],
+        choices: ["Pippin Baggins", "Piper Proudfood", "Pipperos Parrow", "Peregrin Took"],
         answer: "Peregrin Took"
     },
     {
@@ -107,10 +107,13 @@ function findQuestion() {
     var question = questions[questionIndex];
     var choiceList = document.querySelector('#answers')
     questionTitle.textContent = question.title
+    choiceList.innerHTML = "";
     question.choices.forEach(function(choice, i){
         var pickBtn = document.createElement("button")
+        pickBtn.setAttribute('class', 'choice')
         pickBtn.setAttribute('value', choice);
-        pickBtn.textContent = question.choices[i];
+        pickBtn.textContent = `${i + 1}. ${choice}`;
+        // pickBtn.textContent = question.choices[i];
         choiceList.appendChild(pickBtn);
         pickBtn.addEventListener('click', checkAnswer)
     })
@@ -121,22 +124,70 @@ function findQuestion() {
         // Decrement time if False
         // If time hits 0, ends quiz
     // Call end quiz function
-function checkAnswer () {
-    questionIndex++
-    if (this.value !== questions[questionIndex].answer) {
+function checkAnswer() {
+    if (questionIndex > 9) {
+        endQuiz();
+    }
+    else if (this.value !== questions[questionIndex].answer) {
         timerCount -= 15
-        findQuestion;
-    }
-    if (timerCount <= 0) {
-        endquiz;
+        console.log(questionIndex)
+        console.log(this.value);
+        console.log(questions[questionIndex].answer);
+        questionIndex++
+        findQuestion();
     } else {
-        findQuestion;
+        console.log(questionIndex)
+        console.log(this.value);
+        console.log(questions[questionIndex].answer);
+        questionIndex++
+        findQuestion();
     }
+    // add 'or if questionIndexx >= 11'
+    if (timerCount <= 0) {
+        endQuiz();
+    }
+
+    // if (questions[questionIndex].title == 'undefined') {
+    //     console.log('We did it!');
+    // }
+    // console.log(questionIndex)
 }
 // Function: End quiz. Function must:
-    // clear timer interval
+    // !clear timer interval
     // bring score (remaining time) front and center
+        // Make a variable for the quiz block
+        // Make a variable for 
     // Call save user function
+function endQuiz() {
+    var endScore = document.createTextNode(timerCount);
+    var answerBlock = document.querySelector('#answers')
+    console.log(answerBlock);
+    endScore.textContent = timerCount;
+    answerBlock.append(endScore);
+    saveUser();
+}
+
+function saveUser() {
+    const userInput = document.createElement("input");
+    userInput.setAttribute('type', 'text');
+    const answerBlock = document.querySelector('#answers');
+    answerBlock.setAttribute('type', 'submit');
+    answerBlock.append(userInput);
+    const submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Submit';
+    
+    
+    answerBlock.append(submitBtn);
+
+    submitBtn.addEventListener('click', function (){
+        console.log(userInput.value);
+        localStorage.setItem(userInput.value, timerCount);
+        userInput.value = '';
+        savedInitials
+    })
+    
+}
+saveUser();
 // Function: save user. Function must:
     // Present an input box to enter initials.
     // Save initials as key and score as value in local storage.
