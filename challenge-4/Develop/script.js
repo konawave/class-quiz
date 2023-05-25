@@ -1,11 +1,8 @@
 var highscoreBtn = document.querySelector("#highscore")
 var timer = document.querySelector("#timer")
 var startBtn = document.querySelector("#start") //No start button quite yet. Will use datasets to make it visible/hidden. 
-var answers = document.querySelector('#answers')
-var questionTitle = document.querySelector('#question');
-var quiz = document.querySelector('.quiz');
-var scores = document.querySelector('#scores');
-const scoreList = document.querySelector('#scoreList')
+var questionBtn = document.querySelector("#question")
+var questionTitle = document.querySelector('#question')
 
 var initials = ""
 var questionIndex = 0
@@ -108,19 +105,20 @@ function countdown(){
         // Set the text of the created element to be equal to 
     // Add event listener for click on questions function
 function findQuestion() {
-    if (timerCount <= 0 || questionIndex >= 2) {
+    if (timerCount <= 0 || questionIndex >= 11) {
         endQuiz();
     }
     var question = questions[questionIndex];
+    var choiceList = document.querySelector('#answers')
     questionTitle.textContent = question.title
-    answers.innerHTML = "";
+    choiceList.innerHTML = "";
     question.choices.forEach(function(choice, i){
         var pickBtn = document.createElement("button")
         pickBtn.setAttribute('class', 'choice')
         pickBtn.setAttribute('value', choice);
         pickBtn.textContent = `${i + 1}. ${choice}`;
         // pickBtn.textContent = question.choices[i];
-        answers.appendChild(pickBtn);
+        choiceList.appendChild(pickBtn);
         pickBtn.addEventListener('click', checkAnswer)
     })
 }
@@ -131,8 +129,10 @@ function findQuestion() {
         // If time hits 0, ends quiz
     // Call end quiz function
 function checkAnswer() {
-    
-    if (this.value !== questions[questionIndex].answer) {
+    if (questionIndex > 9) {
+        endQuiz();
+    }
+    else if (this.value !== questions[questionIndex].answer) {
         timerCount -= 10
         console.log(questionIndex)
         console.log(this.value);
@@ -163,21 +163,21 @@ function checkAnswer() {
 function endQuiz() {
     var endScore = document.createTextNode(timerCount);
     endScore.textContent = timerCount;
-    quiz.append(endScore);
-    quiz.setAttribute('style', 'text-align:center')
-    answers.setAttribute('style', 'display: none');
-    questionTitle.setAttribute('style', 'display: none');
+    answerBlock.append(endScore);
     saveUser();
 }
 
 function saveUser() {
     const userInput = document.createElement("input");
     userInput.setAttribute('type', 'text');
-    scores.setAttribute('type', 'submit');
-    scores.append(userInput);
+    const answerBlock = document.querySelector('#answers');
+    answerBlock.setAttribute('type', 'submit');
+    answerBlock.append(userInput);
     const submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
-    scores.append(submitBtn);
+    
+    
+    answerBlock.append(submitBtn);
 
     submitBtn.addEventListener('click', function (){
         
