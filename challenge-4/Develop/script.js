@@ -2,11 +2,15 @@ var highscoreBtn = document.querySelector("#highscore")
 var timer = document.querySelector("#timer")
 var startBtn = document.querySelector("#start") //No start button quite yet. Will use datasets to make it visible/hidden. 
 var answers = document.querySelector('#answers')
-var questionTitle = document.querySelector('#question')
+var questionTitle = document.querySelector('#question');
+var quiz = document.querySelector('.quiz');
+var scores = document.querySelector('#scores');
+const scoreList = document.querySelector('#scoreList')
 
 var initials = ""
 var questionIndex = 0
 var timerCount = 0
+var scoreIndex = 0
 
 var questions = [
     {
@@ -104,9 +108,8 @@ function countdown(){
         // Set the text of the created element to be equal to 
     // Add event listener for click on questions function
 function findQuestion() {
-    if (timerCount <= 0 || questionIndex >= 10) {
+    if (timerCount <= 0 || questionIndex >= 2) {
         endQuiz();
-        return
     }
     var question = questions[questionIndex];
     questionTitle.textContent = question.title
@@ -159,46 +162,41 @@ function checkAnswer() {
     // Call save user function
 function endQuiz() {
     var endScore = document.createTextNode(timerCount);
-    var answerBlock = document.querySelector('#answers')
-    console.log(answerBlock);
     endScore.textContent = timerCount;
-    answerBlock.append(endScore);
-    answerBlock.setAttribute('style', 'display: none');
-    questionTitle.setAttribute('style', 'display: none')
+    quiz.append(endScore);
+    quiz.setAttribute('style', 'text-align:center')
+    answers.setAttribute('style', 'display: none');
+    questionTitle.setAttribute('style', 'display: none');
     saveUser();
 }
 
 function saveUser() {
     const userInput = document.createElement("input");
     userInput.setAttribute('type', 'text');
-    answers.setAttribute('type', 'submit');
-    answers.append(userInput);
+    scores.setAttribute('type', 'submit');
+    scores.append(userInput);
     const submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
-    
-    
-    answers.append(submitBtn);
+    scores.append(submitBtn);
 
     submitBtn.addEventListener('click', function (){
-        localStorage.setItem(userInput.value, timerCount);
+        
+        localStorage.setItem(scoreIndex, userInput.value + ' ' + timerCount);
         userInput.value = '';
-
-        const highScores = document.createElement('ol');
-        let sortedScores = [];
-        for (i = 0; i<localStorage.length; i++) {
-            console.log(localStorage.getItem(localStorage.key(i)))
-            let joker = sortedScores.push(localStorage.getItem(localStorage.key(i)))
-            console.log(joker);
-
-        }
+        scoreIndex++;
+        allScores();
     })
-    
+    allScores();
 }
 
-// Function: save user. Function must:
-    // Present an input box to enter initials.
-    // Save initials as key and score as value in local storage.
-    // Have a save button to do the above.
-    // Present all locally stored scores, sorted by value. 
-// Play again function:
-    // Calls Start quiz function
+function allScores() {
+    scores.remove(scoreList);
+    scoreList.setAttribute('style', 'display: block');
+    scores.appendChild(scoreList);
+    for (i = 0; i < localStorage.length; i++) {
+        let score = document.createElement('li');
+        score.textContent = localStorage.getItem(i)
+        console.log(localStorage.getItem(i));
+        highScores.append(score);
+        }
+    }

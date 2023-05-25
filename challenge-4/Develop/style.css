@@ -42,3 +42,7 @@ body #header {
     justify-self: center;
 
 }
+
+#scoreList {
+    display: none;
+}
