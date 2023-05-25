@@ -3,6 +3,9 @@ var timer = document.querySelector("#timer")
 var startBtn = document.querySelector("#start") //No start button quite yet. Will use datasets to make it visible/hidden. 
 var questionBtn = document.querySelector("#question")
 var questionTitle = document.querySelector('#question')
+const answers = document.querySelector('#answers');
+const quiz = document.querySelector('.quiz');
+const finalScore = document.querySelector('.finalScore');
 
 var initials = ""
 var questionIndex = 0
@@ -105,7 +108,7 @@ function countdown(){
         // Set the text of the created element to be equal to 
     // Add event listener for click on questions function
 function findQuestion() {
-    if (timerCount <= 0 || questionIndex >= 11) {
+    if (timerCount <= 0 || questionIndex >= 2) {
         endQuiz();
     }
     var question = questions[questionIndex];
@@ -162,25 +165,25 @@ function checkAnswer() {
     // Call save user function
 function endQuiz() {
     var endScore = document.createTextNode(timerCount);
+    answers.setAttribute('style', 'display:none');
+    questionTitle.setAttribute('style', 'display:none');
     endScore.textContent = timerCount;
-    answerBlock.append(endScore);
+    finalScore.append(endScore);
     saveUser();
 }
 
 function saveUser() {
     const userInput = document.createElement("input");
     userInput.setAttribute('type', 'text');
-    const answerBlock = document.querySelector('#answers');
-    answerBlock.setAttribute('type', 'submit');
-    answerBlock.append(userInput);
+    finalScore.setAttribute('type', 'submit');
+    finalScore.append(userInput);
     const submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
     
     
-    answerBlock.append(submitBtn);
+    finalScore.append(submitBtn);
 
     submitBtn.addEventListener('click', function (){
-        
         localStorage.setItem(scoreIndex, userInput.value + ' ' + timerCount);
         userInput.value = '';
         scoreIndex++;
@@ -188,15 +191,16 @@ function saveUser() {
     })
     allScores();
 }
-
+// possible solution: add the local storage items to an array, and then iterate through the array to append each array item as a list item. 
 function allScores() {
-    scores.remove(scoreList);
+    const scoreList = document.createElement('ol');
     scoreList.setAttribute('style', 'display: block');
+    scoreList.setAttribute('style', 'text-align:center');
     scores.appendChild(scoreList);
     for (i = 0; i < localStorage.length; i++) {
         let score = document.createElement('li');
         score.textContent = localStorage.getItem(i)
         console.log(localStorage.getItem(i));
-        highScores.append(score);
+        scoreList.append(score);
         }
     }

@@ -43,6 +43,8 @@ body #header {
 
 }
 
-#scoreList {
-    display: none;
+.finalScore {
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
