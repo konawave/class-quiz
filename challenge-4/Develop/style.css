@@ -23,7 +23,6 @@ body #header {
 }
 
 .quiz {
-    margin-top: 30%;
     display: flex;
     flex-direction: column;
 }
@@ -42,6 +41,10 @@ body #header {
     display: inline;
     display: flex;
     justify-self: center;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #c2d3cd;
+    color: black;
 
 }
 
@@ -49,6 +52,7 @@ body #header {
     text-align: center;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .playAgain {
@@ -75,14 +79,34 @@ body #header {
     background-color: #56494c;
 }
 
-#start {
-    color: white;
-}
-
 li {
     color: white;
     margin: auto;
     width: 100px;
     height: 30px;
     background-color: #56494c;
+}
+
+.finalScore {
+    height: 200px;
+    color: white;
+}
+
+.submit {
+    height: 20px;
+    width: 100px;
+    margin-right: auto;
+    margin-left:auto;
+}
+
+.input {
+    height: 20px;
+    width: 150px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#finalText {
+    font-size: 35px;
+    display: none;
 }

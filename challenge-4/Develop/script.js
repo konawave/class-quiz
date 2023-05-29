@@ -71,7 +71,8 @@ var questions = [
     {
         name: "question10",
         title: "Who does Sam marry when he returns to the Shire?",
-        choices: ["Clementine", "Rose", "Thyme", "Lily"]
+        choices: ["Clementine", "Rose", "Thyme", "Lily"],
+        answer: "Rose"
     }
 
 ]
@@ -109,7 +110,7 @@ function countdown(){
         // Set the text of the created element to be equal to 
     // Add event listener for click on questions function
 function findQuestion() {
-    if (timerCount <= 0 || questionIndex >= 2) {
+    if (timerCount <= 0 || questionIndex >= 9) {
         endQuiz();
     }
     var question = questions[questionIndex];
@@ -137,7 +138,7 @@ function checkAnswer() {
         endQuiz();
     }
     else if (this.value !== questions[questionIndex].answer) {
-        timerCount -= 10
+        // timerCount -= 10
         console.log(questionIndex)
         console.log(this.value);
         console.log(questions[questionIndex].answer);
@@ -166,19 +167,24 @@ function checkAnswer() {
     // Call save user function
 function endQuiz() {
     var endScore = document.createTextNode(timerCount);
+    // endScore.setAttribute('style', 'font-size: 35px;');
     answers.setAttribute('style', 'display:none');
     questionTitle.setAttribute('style', 'display:none');
     endScore.textContent = timerCount;
     finalScore.append(endScore);
+    finalText.setAttribute('style', 'display:block');
     saveUser();
 }
 
 function saveUser() {
     const userInput = document.createElement("input");
+    userInput.setAttribute('class', 'input');
     userInput.setAttribute('type', 'text');
+    userInput.setAttribute('style', 'placeholder: "Enter Initials"')
     finalScore.setAttribute('type', 'submit');
     finalScore.append(userInput);
     const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('class', 'submit')
     submitBtn.textContent = 'Submit';
     
     
@@ -230,5 +236,6 @@ function allScores() {
 playAgain.addEventListener('click', function() {
     timer.setAttribute('style', 'display: block');
     playAgain.setSttribute('style', 'display:none');
+    finalText.setAttribute('style', 'display:none');
     startQuiz();
 })
