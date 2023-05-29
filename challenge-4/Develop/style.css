@@ -13,11 +13,13 @@ html {
 body {
     height: 100%;
     width: 100%;
+    background-color: #9fa4a9;
 }
 body #header {
     display: flex;
     justify-content: space-between;
     height: 7%;
+    background-color: #c2d3cd;
 }
 
 .quiz {
@@ -47,4 +49,40 @@ body #header {
     text-align: center;
     display: flex;
     justify-content: center;
+}
+
+.playAgain {
+    text-align:center;
+    width: 100px;
+    height: 30px;
+    margin: auto;
+    display: none;
+    color: white;
+    background-color: #56494c;
+}
+
+.playAgain p {
+    border: black 1px;
+}
+
+#question {
+    color: white;
+    background-color: #56494c;
+}
+
+.choice {
+    Color: white;
+    background-color: #56494c;
+}
+
+#start {
+    color: white;
+}
+
+li {
+    color: white;
+    margin: auto;
+    width: 100px;
+    height: 30px;
+    background-color: #56494c;
 }

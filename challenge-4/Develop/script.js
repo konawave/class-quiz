@@ -1,11 +1,12 @@
-var highscoreBtn = document.querySelector("#highscore")
-var timer = document.querySelector("#timer")
-var startBtn = document.querySelector("#start") //No start button quite yet. Will use datasets to make it visible/hidden. 
-var questionBtn = document.querySelector("#question")
-var questionTitle = document.querySelector('#question')
+const highscoreBtn = document.querySelector("#highscore")
+const timer = document.querySelector("#timer")
+const startBtn = document.querySelector("#start") 
+const questionBtn = document.querySelector("#question")
+const questionTitle = document.querySelector('#question')
 const answers = document.querySelector('#answers');
 const quiz = document.querySelector('.quiz');
 const finalScore = document.querySelector('.finalScore');
+const playAgain = document.querySelector('.playAgain');
 
 var initials = ""
 var questionIndex = 0
@@ -182,25 +183,52 @@ function saveUser() {
     
     
     finalScore.append(submitBtn);
+    scoreIndex++;
+    allScores();
 
     submitBtn.addEventListener('click', function (){
         localStorage.setItem(scoreIndex, userInput.value + ' ' + timerCount);
         userInput.value = '';
-        scoreIndex++;
-        allScores();
     })
-    allScores();
 }
+
+
 // possible solution: add the local storage items to an array, and then iterate through the array to append each array item as a list item. 
+// function allScores() {
+//     const scoreList = document.createElement('ol');
+//     scoreList.setAttribute('style', 'display: block');
+//     scoreList.setAttribute('style', 'text-align:center');
+//     scores.appendChild(scoreList);
+//     for (i = 0; i < localStorage.length; i++) {
+//         let score = document.createElement('li');
+//         score.textContent = localStorage.getItem(i)
+//         console.log(localStorage.getItem(i));
+//         scoreList.append(score);
+//         }
+//     }
+
+// A function that adds each localStorage item to the array, then adds each array item to the ordered list based on index. At the top of the function, the array is always reset to [].
 function allScores() {
+    timer.setAttribute('style', 'display:none');
     const scoreList = document.createElement('ol');
+    let scoreArray = [];
     scoreList.setAttribute('style', 'display: block');
     scoreList.setAttribute('style', 'text-align:center');
     scores.appendChild(scoreList);
     for (i = 0; i < localStorage.length; i++) {
+        scoreArray.push(localStorage.getItem(i));
         let score = document.createElement('li');
-        score.textContent = localStorage.getItem(i)
-        console.log(localStorage.getItem(i));
+        score.textContent = scoreArray[i];
         scoreList.append(score);
         }
+    playAgain.setAttribute('style', 'display: block');
+    // for (i = 0; i < localStorage.length; i++) {
+    //     let score = document.createElement('li');
+    //     }
     }
+
+playAgain.addEventListener('click', function() {
+    timer.setAttribute('style', 'display: block');
+    playAgain.setSttribute('style', 'display:none');
+    startQuiz();
+})
