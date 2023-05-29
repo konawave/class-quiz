@@ -138,7 +138,7 @@ function checkAnswer() {
         endQuiz();
     }
     else if (this.value !== questions[questionIndex].answer) {
-        // timerCount -= 10
+        timerCount -= 10
         console.log(questionIndex)
         console.log(this.value);
         console.log(questions[questionIndex].answer);
@@ -166,7 +166,8 @@ function checkAnswer() {
         // Make a variable for 
     // Call save user function
 function endQuiz() {
-    var endScore = document.createTextNode(timerCount);
+    var endScore = document.createElement('p');
+    endScore.setAttribute('style', 'font-size: 35px')
     // endScore.setAttribute('style', 'font-size: 35px;');
     answers.setAttribute('style', 'display:none');
     questionTitle.setAttribute('style', 'display:none');
