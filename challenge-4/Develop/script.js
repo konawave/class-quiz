@@ -1,19 +1,27 @@
-const highscoreBtn = document.querySelector("#highscore")
+// Variable for the timer element
 const timer = document.querySelector("#timer")
+// Variable for start button
 const startBtn = document.querySelector("#start") 
-const questionBtn = document.querySelector("#question")
+// Variable for the section that displays the question
 const questionTitle = document.querySelector('#question')
+// Variable for section with answers
 const answers = document.querySelector('#answers');
+// Variable for section that includes both questions and answer
 const quiz = document.querySelector('.quiz');
+// Variable the container of the final score
 const finalScore = document.querySelector('.finalScore');
+// variable for the play again button
 const playAgain = document.querySelector('.playAgain');
 
-var initials = ""
+// Variable for which question we're currently on
 var questionIndex = 0
+// Variable for the timer value
 var timerCount = 0
+// Variable for storing score in local storage
 var scoreIndex = 0
 
-var questions = [
+// Object containing all questions, titles, choices, and answers as properties of the object
+const questions = [
     {
         name: "question1",
         title: "When Gandalf was battling the Balrog in Moria, he said: 'Fly ______'",
@@ -77,19 +85,18 @@ var questions = [
 
 ]
 
-// Function: Start quiz. Function must:
-    // Activate on click event of the start button
-    // setAttribute of the Start button to display:none
-    // uses countdown function.
-    // Call find questions function.
+
+// Event listener for the start button to trigger the quiz.
 startBtn.addEventListener("click", startQuiz);
 
+// Starts timer, hides start button, and calls function to pull which question we're on.
 function startQuiz() {
     startBtn.setAttribute("style", "display:none");
     countdown();
     findQuestion();
 }
 
+// function for the timer. Called in the function above.
 function countdown(){
     timerCount = 80
     var timerCountdown = setInterval(function() {   
@@ -103,46 +110,41 @@ function countdown(){
     }
     } , 1000)
 }
-// Function: Find questions. Function must:
-    // Set current question (based on index of the array?)
-    // Increment question index by 1
-    // Set the text content of each of the choice buttons
-        // Set the text of the created element to be equal to 
-    // Add event listener for click on questions function
+
+// function decides which question we're using, and checks to see if the quiz should end.
 function findQuestion() {
-    if (timerCount <= 0 || questionIndex >= 9) {
+    if (timerCount <= 0 || questionIndex >= 10) {
         endQuiz();
     }
-    var question = questions[questionIndex];
-    var choiceList = document.querySelector('#answers')
-    questionTitle.textContent = question.title
+    const question = questions[questionIndex];
+    const choiceList = document.querySelector('#answers')
+    if (questionIndex < 10) {questionTitle.textContent = question.title}
     choiceList.innerHTML = "";
-    question.choices.forEach(function(choice, i){
+    if (questionIndex < 10) {question.choices.forEach(function(choice, i){
         var pickBtn = document.createElement("button")
         pickBtn.setAttribute('class', 'choice')
         pickBtn.setAttribute('value', choice);
         pickBtn.textContent = `${i + 1}. ${choice}`;
-        // pickBtn.textContent = question.choices[i];
         choiceList.appendChild(pickBtn);
         pickBtn.addEventListener('click', checkAnswer)
-    })
+    })}
 }
 
-// Function: Click on questions. Function must:
-    // Check for boolean if answer is True or False
-        // Decrement time if False
-        // If time hits 0, ends quiz
-    // Call end quiz function
+// Checks to see if the quiz should end, and ensures that the timer doesn't go into the negatives if a wrong answer is chosen when the timer is below 10. Also increments the question index and calls the findQuestion function to move onto the next question.
 function checkAnswer() {
-    if (questionIndex > 9) {
+    if (questionIndex >= 10) {
         endQuiz();
     }
     else if (this.value !== questions[questionIndex].answer) {
-        timerCount -= 10
         console.log(questionIndex)
         console.log(this.value);
         console.log(questions[questionIndex].answer);
         questionIndex++
+        if (timerCount > 10) {
+            timerCount -= 10
+        } else {
+            timerCount = 0
+        }
         findQuestion();
     } else {
         console.log(questionIndex)
@@ -151,24 +153,12 @@ function checkAnswer() {
         questionIndex++
         findQuestion();
     }
-    // add 'or if questionIndexx >= 11'
-    
-
-    // if (questions[questionIndex].title == 'undefined') {
-    //     console.log('We did it!');
-    // }
-    // console.log(questionIndex)
 }
-// Function: End quiz. Function must:
-    // !clear timer interval
-    // bring score (remaining time) front and center
-        // Make a variable for the quiz block
-        // Make a variable for 
-    // Call save user function
+
+// Function that outlines what happens when the quiz ends.
 function endQuiz() {
     var endScore = document.createElement('p');
     endScore.setAttribute('style', 'font-size: 35px')
-    // endScore.setAttribute('style', 'font-size: 35px;');
     answers.setAttribute('style', 'display:none');
     questionTitle.setAttribute('style', 'display:none');
     endScore.textContent = timerCount;
@@ -177,47 +167,30 @@ function endQuiz() {
     saveUser();
 }
 
+// Function that uses local storage to save scores.
 function saveUser() {
     const userInput = document.createElement("input");
     userInput.setAttribute('class', 'input');
     userInput.setAttribute('type', 'text');
-    userInput.setAttribute('style', 'placeholder: "Enter Initials"')
+    userInput.setAttribute('placeholder', 'Enter Initials')
     finalScore.setAttribute('type', 'submit');
     finalScore.append(userInput);
     const submitBtn = document.createElement('button');
     submitBtn.setAttribute('class', 'submit')
     submitBtn.textContent = 'Submit';
-    
-    
     finalScore.append(submitBtn);
     scoreIndex++;
     allScores();
-
     submitBtn.addEventListener('click', function (){
         localStorage.setItem(scoreIndex, userInput.value + ' ' + timerCount);
         userInput.value = '';
     })
 }
 
-
-// possible solution: add the local storage items to an array, and then iterate through the array to append each array item as a list item. 
-// function allScores() {
-//     const scoreList = document.createElement('ol');
-//     scoreList.setAttribute('style', 'display: block');
-//     scoreList.setAttribute('style', 'text-align:center');
-//     scores.appendChild(scoreList);
-//     for (i = 0; i < localStorage.length; i++) {
-//         let score = document.createElement('li');
-//         score.textContent = localStorage.getItem(i)
-//         console.log(localStorage.getItem(i));
-//         scoreList.append(score);
-//         }
-//     }
-
-// A function that adds each localStorage item to the array, then adds each array item to the ordered list based on index. At the top of the function, the array is always reset to [].
+// Function for displaying scores pulled from local storage.
 function allScores() {
     timer.setAttribute('style', 'display:none');
-    const scoreList = document.createElement('ol');
+    const scoreList = document.createElement('ul');
     let scoreArray = [];
     scoreList.setAttribute('style', 'display: block');
     scoreList.setAttribute('style', 'text-align:center');
@@ -229,14 +202,13 @@ function allScores() {
         scoreList.append(score);
         }
     playAgain.setAttribute('style', 'display: block');
-    // for (i = 0; i < localStorage.length; i++) {
-    //     let score = document.createElement('li');
-    //     }
     }
-
+// Event listener added for play again button so the quiz restarts if clicked.
 playAgain.addEventListener('click', function() {
+    questionIndex = 0
+    scoreList.remove('li');
     timer.setAttribute('style', 'display: block');
-    playAgain.setSttribute('style', 'display:none');
+    playAgain.setAttribute('style', 'display:none');
     finalText.setAttribute('style', 'display:none');
     startQuiz();
 })
