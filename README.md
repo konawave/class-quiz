@@ -19,6 +19,12 @@
 ![image](./challenge-4/Assets/mockup-2.jpg)
 ![image](./challenge-4/Assets/mockup-3.jpg)
 
+
+## Links
+Deployed Page: https://konawave.github.io/class-quiz/
+
+GitHub Repository: https://github.com/konawave/class-quiz
+
 ## Tech
 * JavaScript
 * CSS
