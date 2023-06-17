@@ -11,7 +11,9 @@ const quiz = document.querySelector('.quiz');
 // Variable the container of the final score
 const finalScore = document.querySelector('.finalScore');
 // variable for the play again button
-const playAgain = document.querySelector('.playAgain');
+const title = document.querySelector('#title');
+//
+const scoreList = document.createElement('ul');
 
 // Variable for which question we're currently on
 var questionIndex = 0
@@ -19,6 +21,8 @@ var questionIndex = 0
 var timerCount = 0
 // Variable for storing score in local storage
 var scoreIndex = 0
+
+var scoreArray = [];
 
 // Object containing all questions, titles, choices, and answers as properties of the object
 const questions = [
@@ -92,6 +96,7 @@ startBtn.addEventListener("click", startQuiz);
 // Starts timer, hides start button, and calls function to pull which question we're on.
 function startQuiz() {
     startBtn.setAttribute("style", "display:none");
+    title.setAttribute("style", "display:none");
     countdown();
     findQuestion();
 }
@@ -136,9 +141,7 @@ function checkAnswer() {
         endQuiz();
     }
     else if (this.value !== questions[questionIndex].answer) {
-        console.log(questionIndex)
-        console.log(this.value);
-        console.log(questions[questionIndex].answer);
+        (questions[questionIndex].answer);
         questionIndex++
         if (timerCount > 10) {
             timerCount -= 10
@@ -147,9 +150,7 @@ function checkAnswer() {
         }
         findQuestion();
     } else {
-        console.log(questionIndex)
-        console.log(this.value);
-        console.log(questions[questionIndex].answer);
+        (questions[questionIndex].answer);
         questionIndex++
         findQuestion();
     }
@@ -190,10 +191,9 @@ function saveUser() {
 // Function for displaying scores pulled from local storage.
 function allScores() {
     timer.setAttribute('style', 'display:none');
-    const scoreList = document.createElement('ul');
-    let scoreArray = [];
     scoreList.setAttribute('style', 'display: block');
     scoreList.setAttribute('style', 'text-align:center');
+    scoreList.setAttribute('id', 'scoreList')
     scores.appendChild(scoreList);
     for (i = 0; i < localStorage.length; i++) {
         scoreArray.push(localStorage.getItem(i));
@@ -201,14 +201,5 @@ function allScores() {
         score.textContent = scoreArray[i];
         scoreList.append(score);
         }
-    playAgain.setAttribute('style', 'display: block');
+// Event listener added for play again button so the quiz restarts if clicked
     }
-// Event listener added for play again button so the quiz restarts if clicked.
-playAgain.addEventListener('click', function() {
-    questionIndex = 0
-    scoreList.remove('li');
-    timer.setAttribute('style', 'display: block');
-    playAgain.setAttribute('style', 'display:none');
-    finalText.setAttribute('style', 'display:none');
-    startQuiz();
-})
