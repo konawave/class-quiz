@@ -1,6 +1,5 @@
 * {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border: black solid 2px;
     padding: 0;
     margin: 0;
 }
@@ -13,15 +12,18 @@ html {
 body {
     height: 100%;
     width: 100%;
+    background-color: #9fa4a9;
 }
 body #header {
     display: flex;
     justify-content: space-between;
     height: 7%;
+    background-color: #c2d3cd;
 }
 
 .quiz {
-    margin-top: 30%;
+    display: flex;
+    flex-direction: column;
 }
 
 .quiz h2 {
@@ -29,6 +31,82 @@ body #header {
     justify-content: center;
 }
 
-#answers li {
-    list-style-type: none;
+#answers {
+    display: flex;
+    justify-content: space-around;
+}
+
+#start {
+    display: inline;
+    display: flex;
+    justify-self: center;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #c2d3cd;
+    color: black;
+
+}
+
+.finalScore {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.playAgain {
+    text-align:center;
+    width: 100px;
+    height: 30px;
+    margin: auto;
+    display: none;
+    color: white;
+    background-color: #56494c;
+}
+
+.playAgain p {
+    border: black 1px;
+}
+
+#question {
+    color: white;
+    background-color: #56494c;
+}
+
+.choice {
+    Color: white;
+    background-color: #56494c;
+}
+
+li {
+    color: white;
+    margin: auto;
+    width: 100px;
+    height: 30px;
+    background-color: #56494c;
+}
+
+.finalScore {
+    height: 200px;
+    color: white;
+}
+
+.submit {
+    height: 20px;
+    width: 100px;
+    margin-right: auto;
+    margin-left:auto;
+}
+
+.input {
+    height: 20px;
+    width: 150px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+#finalText {
+    font-size: 35px;
+    display: none;
 }

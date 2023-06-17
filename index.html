@@ -5,22 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./challenge-4/Develop/style.css">
-    <title>Code Quiz</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <title>LOTR Quiz</title>
 </head>
 <body>
-    <!-- <h1>Code Quiz!</h1> -->
     <div id="header">
-        <h2 id="highscore">View Highscores</h2>
-        <h2 id="timer">Time: </h2>
+        <h2 id="timer">Time</h2>
+    </div>
+    <div class="finalScore">
+        <p id='finalText'>Final Score:</p>
     </div>
     <div class="quiz">
-        <h2>Insert Questions Here</h2>
-        <ul id="answers">
-            <li id="answer1">Answer 1</li>
-            <li id="answer2">Answer 2</li>
-            <li id="answer3">Answer 3</li>
-            <li id="answer4">Answer 4</li>
-        </ul>
+        <h2 id="title">Lord of the Rings Quiz</h2>
+        <h2 id="start" data-state="visible">START</h2>
+        <h2 id="question"></h2>
+        <div id="answers"></div>
+        <div id="scores">
+        </div>
     </div>
+
+   <script src="./challenge-4/Develop/script.js"></script>
+   
 </body>
 </html>
